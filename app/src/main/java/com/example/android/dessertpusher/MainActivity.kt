@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
 
+    //Key for bundle
+     private val KEY_REVENUE = "key_revenue"
+     private val KEY_ITEMSOLD = "key_itemSold"
     /** Dessert Data **/
 
     /**
@@ -77,6 +80,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.revenue = revenue
         binding.amountSold = dessertsSold
 
+        //Using bundle to store data
+        if(savedInstanceState!= null){
+            binding.revenue = savedInstanceState.getInt(KEY_REVENUE)
+            binding.amountSold = savedInstanceState.getInt(KEY_ITEMSOLD)
+            showCurrentDessert()
+        }
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
     }
@@ -154,5 +163,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStop() {
         super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE , revenue)
+        outState.putInt(KEY_ITEMSOLD , dessertsSold )
     }
 }
