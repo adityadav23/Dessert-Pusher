@@ -76,16 +76,17 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
 
         dessertTimer = DessertTimer(this.lifecycle)
+        //Using bundle to store data
+        if(savedInstanceState!= null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_ITEMSOLD)
+            showCurrentDessert()
+        }
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
 
-        //Using bundle to store data
-        if(savedInstanceState!= null){
-            binding.revenue = savedInstanceState.getInt(KEY_REVENUE)
-            binding.amountSold = savedInstanceState.getInt(KEY_ITEMSOLD)
-            showCurrentDessert()
-        }
+        
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
     }
